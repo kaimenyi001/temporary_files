@@ -9,65 +9,65 @@ from unittest import TestCase
 from unittest.mock import patch
 
 
-class TestBaseMethods(unittest.TestCase):
-    """ Suite to test Base class """
+class TestBase(unittest.TestCase):
+    """ Functions to test Base class """
 
     def setUp(self):
         """ Method invoked for each test """
         Base._Base__nb_objects = 0
 
     def test_id(self):
-        """ Test assigned id """
-        new = Base(1)
-        self.assertEqual(new.id, 1)
+        """ Testing the assigned id """
+        n = Base(1)
+        self.assertEqual(n.id, 1)
 
     def test_id_default(self):
-        """ Test default id """
-        new = Base()
-        self.assertEqual(new.id, 1)
+        """ Testing default id """
+        n = Base()
+        self.assertEqual(n.id, 1)
 
     def test_id_nb_objects(self):
-        """ Test nb object attribute """
-        new = Base()
-        new2 = Base()
-        new3 = Base()
-        self.assertEqual(new.id, 1)
-        self.assertEqual(new2.id, 2)
-        self.assertEqual(new3.id, 3)
+        """ Testing nb object attribute """
+        n = Base()
+        n2 = Base()
+        n3 = Base()
+        self.assertEqual(n.id, 1)
+        self.assertEqual(n2.id, 2)
+        self.assertEqual(n3.id, 3)
 
     def test_id_mix(self):
-        """ Test nb object attributes and assigned id """
-        new = Base()
-        new2 = Base(1024)
-        new3 = Base()
-        self.assertEqual(new.id, 1)
-        self.assertEqual(new2.id, 1024)
-        self.assertEqual(new3.id, 2)
+        """ Testing nb object attributes and assigned id """
+        n = Base()
+        n2 = Base(1024)
+        n3 = Base()
+        self.assertEqual(n.id, 1)
+        self.assertEqual(n2.id, 1024)
+        self.assertEqual(n3.id, 2)
 
     def test_string_id(self):
-        """ Test string id """
-        new = Base('1')
-        self.assertEqual(new.id, '1')
+        """ Testing string id """
+        n = Base('1')
+        self.assertEqual(n.id, '1')
 
     def test_more_args_id(self):
-        """ Test passing more args to init method """
+        """ Testing passing more arguments to init method """
         with self.assertRaises(TypeError):
-            new = Base(1, 1)
+            n = Base(1, 1)
 
     def test_access_private_attrs(self):
-        """ Test accessing to private attributes """
-        new = Base()
+        """ Testing accessing to private attributes """
+        n = Base()
         with self.assertRaises(AttributeError):
-            new.__nb_objects
+            n.__nb_objects
 
     def test_save_to_file_1(self):
-        """ Test JSON file """
+        """ Testing JSON file """
         Square.save_to_file(None)
-        res = "[]\n"
+        s = "[]\n"
         with open("Square.json", "r") as file:
-            with patch('sys.stdout', new=StringIO()) as str_out:
+            with patch('sys.stdout', n=StringIO()) as str_out:
                 print(file.read())
-                self.assertEqual(str_out.getvalue(), res)
+                self.assertEqual(str_out.getvalue(), s)
 
         try:
             os.remove("Square.json")
@@ -79,13 +79,13 @@ class TestBaseMethods(unittest.TestCase):
             self.assertEqual(file.read(), "[]")
 
     def test_save_to_file_2(self):
-        """ Test JSON file """
+        """ Testing JSON file """
         Rectangle.save_to_file(None)
-        res = "[]\n"
+        s = "[]\n"
         with open("Rectangle.json", "r") as file:
-            with patch('sys.stdout', new=StringIO()) as str_out:
+            with patch('sys.stdout', n=StringIO()) as str_out:
                 print(file.read())
-                self.assertEqual(str_out.getvalue(), res)
+                self.assertEqual(str_out.getvalue(), s)
         try:
             os.remove("Rectangle.json")
         except:
